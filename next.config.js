@@ -4,6 +4,10 @@ const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
 
 module.exports = withPWA({
+  env: {
+    REACT_APP_GG_APP_ID:
+      '1095872982542-ppkjufapgdsq865bfraeqldimlaeaf9a.apps.googleusercontent.com',
+  },
   reactStrictMode: true,
   pwa: {
     dest: 'public',
