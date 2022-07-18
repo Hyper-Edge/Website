@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { User } from './User'; // component display user (see detail on /example directory)
+import User from './User'; // component display user (see detail on /example directory)
 import {
   LoginSocialGoogle,
   LoginSocialAmazon,
@@ -26,7 +26,7 @@ import {
 
 const REDIRECT_URI = 'http://localhost:3000';
 
-export default function SocialLogin() {
+export const SocialLogin = () => {
   const [provider, setProvider] = useState('');
   const [profile, setProfile] = useState<any>();
 
@@ -176,4 +176,4 @@ export default function SocialLogin() {
       )}
     </>
   );
-}
+};
