@@ -7,27 +7,23 @@ import CoinInput from '@/components/ui/coin-input';
 import TransactionInfo from '@/components/ui/transaction-info';
 import { SwapIcon } from '@/components/icons/swap-icon';
 import DashboardLayout from '@/layouts/dashboard/_dashboard';
-import Trade from '@/components/ui/trade';
 import Login from '@/components/authentication/login';
-import SignIn from '@/components/moralis/sign-in';
-import { SignOut } from '@/components/moralis/sign-out';
-import { useMoralis } from 'react-moralis';
-const LoginPage: NextPageWithLayout = () => {
-  const { isAuthenticated } = useMoralis();
-  let [toggleCoin, setToggleCoin] = useState(false);
+import Register from '@/components/authentication/register';
+
+const RegisterPage: NextPageWithLayout = () => {
   return (
     <>
       <NextSeo
-        title="Login"
+        title="Register"
         description="Criptic - React Next Web3 NFT Crypto Dashboard Template"
       />
-      {isAuthenticated ? <SignOut /> : <SignIn />}
+      <Register></Register>
     </>
   );
 };
 
-LoginPage.getLayout = function getLayout(page) {
+RegisterPage.getLayout = function getLayout(page) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
 
-export default LoginPage;
+export default RegisterPage;

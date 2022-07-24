@@ -5,7 +5,8 @@ const runtimeCaching = require('next-pwa/cache');
 
 module.exports = withPWA({
   env: {
-    REACT_APP_GG_APP_ID:
+    SERVER: 'http://localhost:3000',
+    REACT_APP_GOOGLE_AUTH_CLIENT_ID:
       '1095872982542-ppkjufapgdsq865bfraeqldimlaeaf9a.apps.googleusercontent.com',
   },
   reactStrictMode: true,

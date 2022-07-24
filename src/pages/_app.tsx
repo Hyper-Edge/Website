@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
 import type { NextPageWithLayout } from '@/types';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -16,6 +16,7 @@ import '@/assets/css/scrollbar.css';
 import '@/assets/css/globals.css';
 import '@/assets/css/range-slider.css';
 import '@/assets/css/login.css';
+import { MoralisProvider } from 'react-moralis';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -33,30 +34,31 @@ function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
           name="viewport"
           content="width=device-width, initial-scale=1 maximum-scale=1"
         />
-        <script
-          src="https://accounts.google.com/gsi/client"
-          async
-          defer
-        ></script>
+        <script src="https://accounts.google.com/gsi/client"></script>
       </Head>
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <ThemeProvider
-            attribute="class"
-            enableSystem={false}
-            defaultTheme="light"
-          >
-            <WalletProvider>
-              {getLayout(<Component {...pageProps} />)}
-              <SettingsButton />
-              <SettingsDrawer />
-              <ModalsContainer />
-              <DrawersContainer />
-            </WalletProvider>
-          </ThemeProvider>
-        </Hydrate>
-        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
-      </QueryClientProvider>
+      <MoralisProvider
+        serverUrl="https://dwc2dbvhigbr.usemoralis.com:2053/server"
+        appId="ghXDlm7dYNPmkxEiLM15rR9Jnr7LHyFGoWJy6C3J"
+      >
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <ThemeProvider
+              attribute="class"
+              enableSystem={false}
+              defaultTheme="light"
+            >
+              <WalletProvider>
+                {getLayout(<Component {...pageProps} />)}
+                <SettingsButton />
+                <SettingsDrawer />
+                <ModalsContainer />
+                <DrawersContainer />
+              </WalletProvider>
+            </ThemeProvider>
+          </Hydrate>
+          <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+        </QueryClientProvider>
+      </MoralisProvider>
     </>
   );
 }
