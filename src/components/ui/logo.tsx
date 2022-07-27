@@ -2,8 +2,8 @@ import Image from '@/components/ui/image';
 import AnchorLink from '@/components/ui/links/anchor-link';
 import { useIsMounted } from '@/lib/hooks/use-is-mounted';
 import { useIsDarkMode } from '@/lib/hooks/use-is-dark-mode';
-import lightLogo from '@/assets/images/logo.svg';
-import darkLogo from '@/assets/images/logo-white.svg';
+import lightLogo from '@/assets/images/HyperEdge.png';
+import darkLogo from '@/assets/images/HyperEdge.png';
 
 const Logo: React.FC<React.SVGAttributes<{}>> = (props) => {
   const isMounted = useIsMounted();
@@ -17,10 +17,10 @@ const Logo: React.FC<React.SVGAttributes<{}>> = (props) => {
     >
       <span className="relative flex overflow-hidden">
         {isMounted && isDarkMode && (
-          <Image src={darkLogo} alt="Criptic" priority />
+          <Image src={darkLogo} alt="HyperEdge" priority />
         )}
         {isMounted && !isDarkMode && (
-          <Image src={lightLogo} alt="Criptic" priority />
+          <Image src={lightLogo} alt="HyperEdge" priority />
         )}
       </span>
     </AnchorLink>

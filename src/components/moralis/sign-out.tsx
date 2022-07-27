@@ -63,7 +63,7 @@ export const SignOut = () => {
   return (
     <div className="signOutCard">
       <h4>Welcome To Moralis x Web3Auth!</h4>
-      <button className="signOutStyle.refresh" onClick={fetchBalance}>
+      <button className="refresh" onClick={fetchBalance}>
         Refresh
       </button>
       <p className="subHeader">Details:</p>

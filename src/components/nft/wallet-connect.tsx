@@ -5,15 +5,53 @@ import { Transition } from '@/components/ui/transition';
 import ActiveLink from '@/components/ui/links/active-link';
 import { ChevronForward } from '@/components/icons/chevron-forward';
 import { PowerIcon } from '@/components/icons/power';
+import { Refresh } from '@/components/icons/refresh';
 import { useModal } from '@/components/modal-views/context';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useMoralis } from 'react-moralis';
 
 export default function WalletConnect() {
-  const { openModal } = useModal();
-  const { address, disconnectWallet, balance } = useContext(WalletContext);
+  const { logout, Moralis, account, user, isAuthenticated, authenticate } =
+    useMoralis();
+  const [balance, setBalance] = useState(0);
+  const handleCustomLogin = async () => {
+    let chain = parseInt(Moralis.Chains.ETH_ROPSTEN, 16);
+    await authenticate({
+      provider: 'web3Auth',
+      clientId:
+        'BOgdJYwd5tJEV2d_RzLbZyzK-_VSTRPZj5lMDGCE9czzsOEKEERzseVS46mXEI03haM44GNUbRHdAQknY-dGB1Y',
+      chainId: chain,
+    });
+  };
+
+  const fetchBalance = async () => {
+    try {
+      const address = user!.attributes.accounts[0];
+      const options: { chain: '0x3'; address: string } = {
+        chain: Moralis.Chains.ETH_ROPSTEN,
+        address: address,
+      };
+      const balance = await Moralis.Web3API.account.getNativeBalance(options);
+      console.log(balance, 'balance');
+      setBalance(parseInt(balance.balance) / 10 ** 18);
+      return parseInt(balance.balance) / 10 ** 18;
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log('logged in user:', user);
+      console.log('logged in user:', Moralis.User.current());
+      fetchBalance().then((a) => console.log('got balance: ', a));
+      const query = new Moralis.Query('EthTransactions');
+      query.equalTo('from_address', user!.get('ethAddress'));
+      query.find().then((a) => console.log('user transactions:', a));
+    }
+  }, [isAuthenticated]);
   return (
     <>
-      {address ? (
+      {isAuthenticated ? (
         <div className="flex items-center gap-3 sm:gap-6 lg:gap-8">
           <div className="relative">
             <Menu>
@@ -49,9 +87,11 @@ export default function WalletConnect() {
                             Balance
                           </span>
                           <span className="rounded-lg bg-gray-100 px-2 py-1 text-sm tracking-tighter dark:bg-gray-800">
-                            {address.slice(0, 6)}
+                            {user!.attributes.accounts[0].slice(0, 6)}
                             {'...'}
-                            {address.slice(address.length - 6)}
+                            {user!.attributes.accounts[0].slice(
+                              user!.attributes.accounts[0].length - 6
+                            )}
                           </span>
                         </div>
                         <div className="mt-3 font-medium uppercase tracking-wider text-gray-900 dark:text-white">
@@ -64,7 +104,18 @@ export default function WalletConnect() {
                     <div className="p-3">
                       <div
                         className="flex cursor-pointer items-center gap-3 rounded-lg py-2.5 px-3 text-sm font-medium text-gray-900 transition hover:bg-gray-50 dark:text-white dark:hover:bg-gray-800"
-                        onClick={disconnectWallet}
+                        onClick={fetchBalance}
+                      >
+                        <Refresh />
+                        <span className="grow uppercase">Refresh balance</span>
+                      </div>
+                    </div>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <div className="p-3">
+                      <div
+                        className="flex cursor-pointer items-center gap-3 rounded-lg py-2.5 px-3 text-sm font-medium text-gray-900 transition hover:bg-gray-50 dark:text-white dark:hover:bg-gray-800"
+                        onClick={logout}
                       >
                         <PowerIcon />
                         <span className="grow uppercase">Disconnect</span>
@@ -82,7 +133,7 @@ export default function WalletConnect() {
         </div>
       ) : (
         <Button
-          onClick={() => openModal('WALLET_CONNECT_VIEW')}
+          onClick={() => handleCustomLogin()}
           className="shadow-main hover:shadow-large"
         >
           CONNECT
