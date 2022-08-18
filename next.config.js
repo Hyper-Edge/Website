@@ -4,6 +4,10 @@ const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
 
 module.exports = withPWA({
+  images: {
+    loader: 'imgix',
+    path: 'https://hyperedge.web.app/',
+  },
   env: {
     SERVER: 'http://localhost:3000',
     REACT_APP_GOOGLE_AUTH_CLIENT_ID:

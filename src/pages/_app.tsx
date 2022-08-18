@@ -37,8 +37,8 @@ function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
         <script src="https://accounts.google.com/gsi/client"></script>
       </Head>
       <MoralisProvider
-        serverUrl="https://dwc2dbvhigbr.usemoralis.com:2053/server"
-        appId="ghXDlm7dYNPmkxEiLM15rR9Jnr7LHyFGoWJy6C3J"
+        serverUrl="https://yvri04s2x3rn.usemoralis.com:2053/server"
+        appId="CPZYg73mD5H8Zg2zBX4zmNYivVgyr1098WsGBof1"
       >
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
