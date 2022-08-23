@@ -15,7 +15,7 @@ const RegisterPage: NextPageWithLayout = () => {
     <>
       <NextSeo
         title="Register"
-        description="Criptic - React Next Web3 NFT Crypto Dashboard Template"
+        description="HyperEdge - future blockchain technology"
       />
       <Register></Register>
     </>

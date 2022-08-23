@@ -49,8 +49,8 @@ const HomePage: NextPageWithLayout<
   return (
     <>
       <NextSeo
-        title="Criptic Minimal"
-        description="Criptic - React Next Web3 NFT Crypto Dashboard Template"
+        title="HyperEdge"
+        description="HyperEdge - future blockchain technology"
       />
       <div className="mt-8 gap-6 px-4 sm:px-6 lg:px-8 xl:px-10 3xl:px-12">
         <PriceFeedSlider priceFeeds={priceFeedData} />

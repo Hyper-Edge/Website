@@ -34,38 +34,8 @@ const COLUMNS = [
     maxWidth: 220,
   },
   {
-    Header: () => <div className="ltr:ml-auto rtl:mr-auto">OwnerId</div>,
-    accessor: 'OwnerId',
-    // @ts-ignore
-    Cell: ({ cell: { value } }) => (
-      <div
-        className="ltr:text-right rtl:text-left"
-        style={{ wordBreak: 'break-all' }}
-      >
-        {value}
-      </div>
-    ),
-    minWidth: 160,
-    maxWidth: 220,
-  },
-  {
     Header: () => <div className="ltr:ml-auto rtl:mr-auto">AddressHex</div>,
     accessor: 'AddressHex',
-    // @ts-ignore
-    Cell: ({ cell: { value } }) => (
-      <div
-        className="ltr:text-right rtl:text-left"
-        style={{ wordBreak: 'break-all' }}
-      >
-        {value}
-      </div>
-    ),
-    minWidth: 160,
-    maxWidth: 220,
-  },
-  {
-    Header: () => <div className="ltr:ml-auto rtl:mr-auto">Created At</div>,
-    accessor: 'CreatedAt',
     // @ts-ignore
     Cell: ({ cell: { value } }) => (
       <div

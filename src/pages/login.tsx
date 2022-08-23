@@ -19,7 +19,7 @@ const LoginPage: NextPageWithLayout = () => {
     <>
       <NextSeo
         title="Login"
-        description="Criptic - React Next Web3 NFT Crypto Dashboard Template"
+        description="HyperEdge - future blockchain technology"
       />
       {isAuthenticated ? <SignOut /> : <SignIn />}
     </>
